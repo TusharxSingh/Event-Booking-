@@ -1,66 +1,102 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
+import { EventCard } from '@/components/EventCard';
 
-export default function Home() {
+export default async function HomePage() {
+  const events = await prisma.event.findMany({
+    where: {
+      date: { gte: new Date() },
+    },
+    include: {
+      organizer: { select: { name: true } },
+      _count: { select: { rsvps: { where: { status: 'CONFIRMED' } } } },
+    },
+    orderBy: { date: 'asc' },
+    take: 6,
+  });
+
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <div className="home-page">
+      {/* Hero Section */}
+      <section className="hero">
+        <div className="hero-content">
+          <div className="hero-badge">🎉 Your next experience awaits</div>
+          <h1 className="hero-title">
+            Discover & Book
+            <span className="hero-gradient"> Amazing Events</span>
+          </h1>
+          <p className="hero-subtitle">
+            Create, explore, and RSVP to events that matter. From tech meetups to creative
+            workshops — find your next unforgettable experience.
           </p>
+          <div className="hero-actions">
+            <Link href="/events" className="btn btn-primary btn-lg" id="browse-events-btn">
+              Browse Events
+            </Link>
+            <Link href="/sign-up" className="btn btn-secondary btn-lg" id="get-started-btn">
+              Get Started Free
+            </Link>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="hero-stats">
+          <div className="hero-stat glass-card">
+            <span className="hero-stat-icon">📅</span>
+            <span className="hero-stat-number">{events.length}+</span>
+            <span className="hero-stat-label">Upcoming Events</span>
+          </div>
+          <div className="hero-stat glass-card">
+            <span className="hero-stat-icon">👥</span>
+            <span className="hero-stat-number">100+</span>
+            <span className="hero-stat-label">Community Members</span>
+          </div>
+          <div className="hero-stat glass-card">
+            <span className="hero-stat-icon">⚡</span>
+            <span className="hero-stat-number">Free</span>
+            <span className="hero-stat-label">To Use</span>
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* Featured Events */}
+      {events.length > 0 && (
+        <section className="featured-section">
+          <div className="section-header">
+            <h2>Upcoming Events</h2>
+            <Link href="/events" className="section-link">
+              View all →
+            </Link>
+          </div>
+          <div className="events-grid">
+            {events.map((event) => (
+              <EventCard
+                key={event.id}
+                id={event.id}
+                title={event.title}
+                description={event.description}
+                location={event.location}
+                date={event.date}
+                capacity={event.capacity}
+                rsvpCount={event._count.rsvps}
+                imageUrl={event.imageUrl}
+                organizerName={event.organizer.name}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {events.length === 0 && (
+        <section className="empty-section">
+          <div className="empty-state glass-card">
+            <span className="empty-icon">🎪</span>
+            <h2>No events yet</h2>
+            <p>Be the first to create an event and get the community going!</p>
+            <Link href="/events/new" className="btn btn-primary btn-lg">
+              Create Your First Event
+            </Link>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
