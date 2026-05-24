@@ -1,17 +1,13 @@
 import { EventGridSkeleton } from '@/components/LoadingSkeleton';
 
-export default function Loading() {
+export default function HomeLoading() {
   return (
     <div className="home-page">
-      <div className="hero">
-        <div className="hero-content">
-          <div className="skeleton" style={{ width: '180px', height: '28px', borderRadius: '999px', margin: '0 auto 1.5rem' }} />
-          <div className="skeleton" style={{ width: '80%', height: '48px', margin: '0 auto 1rem' }} />
-          <div className="skeleton" style={{ width: '60%', height: '20px', margin: '0 auto 2rem' }} />
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-            <div className="skeleton" style={{ width: '160px', height: '48px', borderRadius: '12px' }} />
-            <div className="skeleton" style={{ width: '160px', height: '48px', borderRadius: '12px' }} />
-          </div>
+      <div className="hero" style={{ minHeight: '480px' }}>
+        <div className="hero-content" style={{ width: '100%', maxWidth: '640px' }}>
+          <div className="skeleton" style={{ width: '70%', height: '40px', margin: '0 auto 1rem' }} />
+          <div className="skeleton" style={{ width: '50%', height: '18px', margin: '0 auto 2rem' }} />
+          <div className="skeleton" style={{ width: '100%', height: '52px', borderRadius: '8px' }} />
         </div>
       </div>
       <div className="featured-section">

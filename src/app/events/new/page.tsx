@@ -15,8 +15,9 @@ export default async function NewEventPage() {
 
   return (
     <div className="create-event-page">
-      <div className="page-header">
+      <div className="section-title page-header">
         <h1>Create Event</h1>
+        <div className="section-title-underline" />
         <p>Fill in the details below to create your event</p>
       </div>
       <div className="form-container glass-card" style={{ padding: '2rem' }}>

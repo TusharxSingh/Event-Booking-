@@ -21,9 +21,7 @@ export function EventForm({ action, initialData, submitLabel }: EventFormProps) 
   return (
     <form action={formAction} className="event-form">
       {state?.error && (
-        <div className="form-error">
-          <span>⚠️</span> {state.error}
-        </div>
+        <div className="form-error">{state.error}</div>
       )}
 
       <div className="form-group">

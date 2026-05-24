@@ -32,8 +32,7 @@ async function EventsList({ search }: { search?: string }) {
   if (events.length === 0) {
     return (
       <div className="empty-state glass-card">
-        <span className="empty-icon">🔍</span>
-        <h2>No events found</h2>
+        <h3>No events found</h3>
         <p>{search ? `No events matching "${search}"` : 'No upcoming events at the moment.'}</p>
       </div>
     );
@@ -68,8 +67,9 @@ export default async function EventsPage({
 
   return (
     <div className="events-page">
-      <div className="page-header">
+      <div className="section-title page-header">
         <h1>Browse Events</h1>
+        <div className="section-title-underline" />
         <p>Discover upcoming events and find your next experience</p>
       </div>
 

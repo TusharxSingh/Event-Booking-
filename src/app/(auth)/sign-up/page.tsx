@@ -57,9 +57,7 @@ export default function SignUpPage() {
         </div>
 
         {error && (
-          <div className="form-error">
-            <span>⚠️</span> {error}
-          </div>
+          <div className="form-error">{error}</div>
         )}
 
         <form onSubmit={handleSubmit} className="auth-form">

@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { RSVPButton } from '@/components/RSVPButton';
 import { DeleteEventButton } from '@/components/DeleteEventButton';
 import Link from 'next/link';
+import { IconCalendar, IconClock, IconLocation, IconUsers } from '@/components/Icons';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -60,16 +61,15 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
     minute: '2-digit',
   });
 
+  const heroBackground = event.imageUrl
+    ? `linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.75)), url(${event.imageUrl})`
+    : 'linear-gradient(135deg, #c97a6d, #E87161)';
+
   return (
     <div className="event-detail-page">
-      {/* Hero Banner */}
       <div
         className="event-hero"
-        style={{
-          backgroundImage: event.imageUrl
-            ? `linear-gradient(to bottom, rgba(10,14,26,0.3), rgba(10,14,26,0.95)), url(${event.imageUrl})`
-            : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-        }}
+        style={{ backgroundImage: heroBackground }}
       >
         <div className="event-hero-content">
           <div className="event-hero-date">
@@ -78,39 +78,39 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             </span>
             <span className="hero-date-day">{eventDate.getDate()}</span>
           </div>
-          <h1>{event.title}</h1>
-          <p className="event-hero-organizer">Hosted by {event.organizer.name}</p>
+          <div>
+            <h1>{event.title}</h1>
+            <p className="event-hero-organizer">Hosted by {event.organizer.name}</p>
+          </div>
         </div>
       </div>
 
-      {/* Content */}
       <div className="event-detail-content">
         <div className="event-detail-main">
-          {/* Info Cards */}
           <div className="event-info-cards">
             <div className="info-card glass-card">
-              <span className="info-icon">📅</span>
+              <IconCalendar className="info-icon" />
               <div>
                 <strong>Date</strong>
                 <p>{dateStr}</p>
               </div>
             </div>
             <div className="info-card glass-card">
-              <span className="info-icon">🕐</span>
+              <IconClock className="info-icon" />
               <div>
                 <strong>Time</strong>
                 <p>{timeStr}</p>
               </div>
             </div>
             <div className="info-card glass-card">
-              <span className="info-icon">📍</span>
+              <IconLocation className="info-icon" />
               <div>
                 <strong>Location</strong>
                 <p>{event.location}</p>
               </div>
             </div>
             <div className="info-card glass-card">
-              <span className="info-icon">👥</span>
+              <IconUsers className="info-icon" />
               <div>
                 <strong>Capacity</strong>
                 <p>{rsvpCount} / {event.capacity} spots filled</p>
@@ -118,20 +118,16 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             </div>
           </div>
 
-          {/* Description */}
           <div className="event-description glass-card">
             <h2>About This Event</h2>
             <p>{event.description}</p>
           </div>
         </div>
 
-        {/* Sidebar */}
         <div className="event-detail-sidebar">
-          {/* RSVP Card */}
           <div className="rsvp-card glass-card">
             <h3>Reserve Your Spot</h3>
 
-            {/* Capacity Bar */}
             <div className="capacity-bar-container">
               <div className="capacity-bar">
                 <div
@@ -142,7 +138,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                       ? 'var(--danger)'
                       : capacityPercentage > 50
                       ? 'var(--warning)'
-                      : 'var(--success)',
+                      : 'var(--primary)',
                   }}
                 />
               </div>
@@ -167,7 +163,6 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
             )}
           </div>
 
-          {/* Organizer Actions */}
           {isOrganizer && (
             <div className="organizer-actions glass-card">
               <h3>Manage Event</h3>
@@ -177,7 +172,7 @@ export default async function EventDetailPage({ params }: { params: Promise<{ id
                 id="edit-event-btn"
                 style={{ width: '100%', marginBottom: '8px' }}
               >
-                ✏️ Edit Event
+                Edit Event
               </Link>
               <DeleteEventButton eventId={event.id} />
             </div>

@@ -45,7 +45,7 @@ export function DeleteEventButton({ eventId }: { eventId: string }) {
       id="delete-event-btn"
       style={{ width: '100%' }}
     >
-      🗑️ Delete Event
+      Delete Event
     </button>
   );
 }

@@ -54,7 +54,6 @@ export function DashboardClient({ myEvents, myRSVPs }: DashboardClientProps) {
           <div className="tab-panel">
             {myEvents.length === 0 ? (
               <div className="empty-state glass-card">
-                <span className="empty-icon">📅</span>
                 <h3>No events yet</h3>
                 <p>Create your first event and start building your community.</p>
                 <Link href="/events/new" className="btn btn-primary">
@@ -79,16 +78,16 @@ export function DashboardClient({ myEvents, myRSVPs }: DashboardClientProps) {
                           <Link href={`/events/${event.id}`}>{event.title}</Link>
                         </h4>
                         <p className="dashboard-item-meta">
-                          📍 {event.location} · 👥 {event.rsvpCount}/{event.capacity} RSVPs
+                          {event.location} · {event.rsvpCount}/{event.capacity} RSVPs
                           {isPast && <span className="badge badge-warning" style={{ marginLeft: '0.5rem' }}>Past</span>}
                         </p>
                       </div>
                       <div className="dashboard-item-actions">
                         <Link href={`/events/${event.id}/edit`} className="btn btn-ghost btn-sm">
-                          ✏️ Edit
+                          Edit
                         </Link>
                         <Link href={`/events/${event.id}`} className="btn btn-ghost btn-sm">
-                          View →
+                          View
                         </Link>
                       </div>
                     </div>
@@ -103,9 +102,8 @@ export function DashboardClient({ myEvents, myRSVPs }: DashboardClientProps) {
           <div className="tab-panel">
             {myRSVPs.length === 0 ? (
               <div className="empty-state glass-card">
-                <span className="empty-icon">🎟️</span>
                 <h3>No RSVPs yet</h3>
-                <p>Browse events and RSVP to something exciting!</p>
+                <p>Browse events and RSVP to something exciting.</p>
                 <Link href="/events" className="btn btn-primary">
                   Browse Events
                 </Link>
@@ -128,7 +126,7 @@ export function DashboardClient({ myEvents, myRSVPs }: DashboardClientProps) {
                           <Link href={`/events/${rsvp.eventId}`}>{rsvp.eventTitle}</Link>
                         </h4>
                         <p className="dashboard-item-meta">
-                          📍 {rsvp.eventLocation} · By {rsvp.organizerName}
+                          {rsvp.eventLocation} · By {rsvp.organizerName}
                           {isPast && <span className="badge badge-warning" style={{ marginLeft: '0.5rem' }}>Past</span>}
                         </p>
                       </div>
@@ -137,7 +135,7 @@ export function DashboardClient({ myEvents, myRSVPs }: DashboardClientProps) {
                           <CancelRSVPButton eventId={rsvp.eventId} />
                         )}
                         <Link href={`/events/${rsvp.eventId}`} className="btn btn-ghost btn-sm">
-                          View →
+                          View
                         </Link>
                       </div>
                     </div>
@@ -168,7 +166,7 @@ function CancelRSVPButton({ eventId }: { eventId: string }) {
       disabled={loading}
       className="btn btn-ghost btn-sm"
     >
-      {loading ? 'Cancelling...' : '❌ Cancel'}
+      {loading ? 'Cancelling...' : 'Cancel'}
     </button>
   );
 }

@@ -16,7 +16,7 @@ export function RSVPButton({ eventId, hasRSVP, isSoldOut, isOrganizer }: RSVPBut
   const [optimisticRSVP, setOptimisticRSVP] = useState(hasRSVP);
 
   if (isOrganizer) {
-    return <div className="rsvp-organizer-badge">👑 You&apos;re the organizer</div>;
+    return <div className="rsvp-organizer-badge">You&apos;re the organizer</div>;
   }
 
   const handleRSVP = () => {
@@ -48,7 +48,7 @@ export function RSVPButton({ eventId, hasRSVP, isSoldOut, isOrganizer }: RSVPBut
       {error && <p className="rsvp-error">{error}</p>}
       {optimisticRSVP ? (
         <div className="rsvp-confirmed">
-          <span className="rsvp-check">✅</span>
+          <span className="rsvp-check" aria-hidden>✓</span>
           <span>You&apos;re confirmed!</span>
           <button
             onClick={handleCancel}
@@ -66,7 +66,7 @@ export function RSVPButton({ eventId, hasRSVP, isSoldOut, isOrganizer }: RSVPBut
           className={`btn btn-primary btn-lg rsvp-btn ${isSoldOut ? 'btn-disabled' : ''}`}
           id="rsvp-btn"
         >
-          {isPending ? 'Confirming...' : isSoldOut ? 'Sold Out' : 'RSVP Now 🎉'}
+          {isPending ? 'Confirming...' : isSoldOut ? 'Sold Out' : 'RSVP Now'}
         </button>
       )}
     </div>

@@ -1,6 +1,6 @@
 export function EventCardSkeleton() {
   return (
-    <div className="event-card glass-card skeleton-card">
+    <div className="event-card skeleton-card">
       <div className="skeleton skeleton-image" />
       <div className="event-card-content">
         <div className="skeleton skeleton-title" />

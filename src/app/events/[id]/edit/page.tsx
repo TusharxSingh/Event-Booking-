@@ -32,8 +32,9 @@ export default async function EditEventPage({ params }: { params: Promise<{ id: 
 
   return (
     <div className="create-event-page">
-      <div className="page-header">
+      <div className="section-title page-header">
         <h1>Edit Event</h1>
+        <div className="section-title-underline" />
         <p>Update the details of your event</p>
       </div>
       <div className="form-container glass-card" style={{ padding: '2rem' }}>

@@ -2,7 +2,6 @@ import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import Link from 'next/link';
 import { DashboardClient } from '@/components/DashboardClient';
 
 export const metadata = {
@@ -43,29 +42,26 @@ export default async function DashboardPage() {
 
   return (
     <div className="dashboard-page">
-      <div className="page-header">
+      <div className="section-title page-header">
         <h1>Dashboard</h1>
-        <p>Welcome back, {session.user.name}!</p>
+        <div className="section-title-underline" />
+        <p>Welcome back, {session.user.name}</p>
       </div>
 
-      {/* Stats Row */}
       <div className="dashboard-stats">
         <div className="stat-card glass-card">
-          <span className="stat-icon">📅</span>
           <div className="stat-info">
             <span className="stat-number">{myEvents.length}</span>
             <span className="stat-label">Events Created</span>
           </div>
         </div>
         <div className="stat-card glass-card">
-          <span className="stat-icon">🎟️</span>
           <div className="stat-info">
             <span className="stat-number">{upcomingRSVPs.length}</span>
             <span className="stat-label">Upcoming RSVPs</span>
           </div>
         </div>
         <div className="stat-card glass-card">
-          <span className="stat-icon">👥</span>
           <div className="stat-info">
             <span className="stat-number">{totalAttendees}</span>
             <span className="stat-label">Total Attendees</span>
@@ -73,7 +69,6 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Tabs */}
       <DashboardClient
         myEvents={myEvents.map((e) => ({
           id: e.id,
