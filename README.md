@@ -2,7 +2,7 @@
 
 A premium, full-stack event booking and management platform built with modern web technologies. This application allows users to discover events, create their own events, RSVP to attend, and manage their schedules through a personalized dashboard.
 
-![Event Booking Platform](https://event-booking-byt.vercel.app/images/hero.jpg) *(Note: Replace with actual screenshot)*
+![Event Booking Platform](./public/images/hero.jpg)
 
 ## ✨ Features
 
